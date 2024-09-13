@@ -4,8 +4,7 @@ import styled from "styled-components";
 
 const TopMenuStyle = styled.ul<{ $isShowNav: boolean }>`
   display: ${(props) => (props.$isShowNav ? "contents" : "grid")};
-  grid-template-columns: ${(props) => !props.$isShowNav && "repeat(8, 1fr)"};
-  width: 795px;
+  grid-template-columns: ${(props) => !props.$isShowNav && "repeat(7, 1fr)"};
   & > li {
     color: ${(props) => (props.$isShowNav ? "#000" : "#fff")};
     font-size: 17px;
@@ -50,9 +49,6 @@ const TopMenu = ({ $isShowNav }: NavEventType) => {
       </li>
       <li>
         <Link to="#">Shop</Link>
-      </li>
-      <li>
-        <Link to="#">스폰서</Link>
       </li>
       <li className="redText">
         <Link to="/ticket/reservation">티켓구매</Link>

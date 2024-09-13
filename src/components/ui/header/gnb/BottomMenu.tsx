@@ -43,9 +43,6 @@ const BottomMenu = ({ $isShowNav }: NavEventType) => {
             <Link to="/ktwiz/policy">회원 정책</Link>
           </li>
           <li>
-            <Link to="/ktwiz/sponsor">스폰서</Link>
-          </li>
-          <li>
             <Link to="/ktwiz/wallpaper">월페이퍼</Link>
           </li>
         </ul>
@@ -53,11 +50,7 @@ const BottomMenu = ({ $isShowNav }: NavEventType) => {
       <li>
         <ul>
           <li>
-            <Link to="/wizpark/intro">
-              수원 kt wiz
-              <br />
-              park
-            </Link>
+            <Link to="/wizpark/intro">수원 kt wiz park</Link>
           </li>
           <li>
             <Link to="/wizpark/parking">주차 예약</Link>
@@ -118,8 +111,6 @@ const BottomMenu = ({ $isShowNav }: NavEventType) => {
           </li>
         </ul>
       </li>
-      <li></li>
-      <li></li>
       <li>
         <ul>
           <li>

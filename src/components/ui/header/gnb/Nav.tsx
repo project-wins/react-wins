@@ -5,7 +5,9 @@ import TopMenu from "./TopMenu";
 
 const MainNavStyle = styled.nav<{ $isShowNav: boolean }>`
   display: ${(props) => props.$isShowNav && "grid"};
-  grid-template-columns: ${(props) => props.$isShowNav && "repeat(8, 1fr)"};
+  grid-template-columns: ${(props) => props.$isShowNav && "repeat(7, 1fr)"};
+  width: 800px;
+  text-align: center;
 `;
 
 const Nav = ({ $isShowNav }: NavEventType) => {

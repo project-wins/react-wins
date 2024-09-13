@@ -29,7 +29,7 @@ const HeaderInnerStyle = styled.div<{ $isShowNav: boolean }>`
   max-width: 1200px;
   display: flex;
   align-items: baseline;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 20px;
   &::after {
     content: "";
