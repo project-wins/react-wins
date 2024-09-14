@@ -2,6 +2,7 @@ import ClubDescription from "@components/About/ClubDescription";
 import ClubHistory from "@components/About/ClubHistory";
 import Catcher from "@pages/Catcher";
 import CatcherDetail from "@pages/CatcherDetail";
+import Cheer from "@pages/Cheer.tsx";
 import Coach from "@pages/Coach";
 import CoachDetail from "@pages/CoachDetail";
 import Home from "@pages/Home";
@@ -211,7 +212,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "cheer",
-            element: "응원단 component",
+            element: <Cheer />,
           },
         ],
       },
