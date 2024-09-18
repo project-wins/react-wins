@@ -1,7 +1,9 @@
 import ClubDescription from "@components/About/ClubDescription";
 import ClubHistory from "@components/About/ClubHistory";
+import BoxScore from "@pages/BoxScore";
 import Catcher from "@pages/Catcher";
 import CatcherDetail from "@pages/CatcherDetail";
+import Cheer from "@pages/Cheer.tsx";
 import Coach from "@pages/Coach";
 import CoachDetail from "@pages/CoachDetail";
 import Home from "@pages/Home";
@@ -17,11 +19,13 @@ import Pitcher from "@pages/Pitcher";
 import PitcherDetail from "@pages/PitcherDetail";
 import Press from "@pages/Press";
 import PressDetail from "@pages/PressDetail";
+import WatchPoint from "@pages/WatchPoint";
+import TeamRanking from "@pages/TeamRanking";
 import WizParkGuide from "@pages/WizParkGuide.tsx";
 import WizParkIntro from "@pages/WizParkIntro.tsx";
 import BasicLayout from "layouts/BasicLayout";
 import CommonLayout from "layouts/CommonLayout";
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
@@ -129,15 +133,18 @@ export const router = createBrowserRouter([
           },
           {
             path: "boxscore",
-            element: "박스스코어 component",
+            element: <BoxScore />,
           },
           {
             path: "ranking",
-            element: "순위 component",
+            children: [
+              { index: true, element: <Navigate to="team" /> },
+              { path: "team", element: <TeamRanking /> },
+            ],
           },
           {
             path: "watchPoint",
-            element: "관전포인트 component",
+            element: <WatchPoint />,
           },
         ],
       },
@@ -211,7 +218,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "cheer",
-            element: "응원단 component",
+            element: <Cheer />,
           },
         ],
       },
