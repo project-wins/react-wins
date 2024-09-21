@@ -1,5 +1,6 @@
 import ClubDescription from "@components/About/ClubDescription";
 import ClubHistory from "@components/About/ClubHistory";
+import Audience from "@pages/Audience.tsx";
 import BoxScore from "@pages/BoxScore";
 import Catcher from "@pages/Catcher";
 import CatcherDetail from "@pages/CatcherDetail";
@@ -19,8 +20,8 @@ import Pitcher from "@pages/Pitcher";
 import PitcherDetail from "@pages/PitcherDetail";
 import Press from "@pages/Press";
 import PressDetail from "@pages/PressDetail";
-import WatchPoint from "@pages/WatchPoint";
 import TeamRanking from "@pages/TeamRanking";
+import WatchPoint from "@pages/WatchPoint";
 import WizParkGuide from "@pages/WizParkGuide.tsx";
 import WizParkIntro from "@pages/WizParkIntro.tsx";
 import BasicLayout from "layouts/BasicLayout";
@@ -140,6 +141,7 @@ export const router = createBrowserRouter([
             children: [
               { index: true, element: <Navigate to="team" /> },
               { path: "team", element: <TeamRanking /> },
+              { path: "crowd", element: <Audience /> },
             ],
           },
           {
