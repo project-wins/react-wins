@@ -1,14 +1,14 @@
-import { RecentGamesType } from "@customTypes/home";
+import { MatchesType } from "@customTypes/recentMatch";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import styled from "styled-components";
 import ControllBtn from "./ControllBtn";
 import MatchesInfo from "./MatchesInfo";
 
-interface HeaderProps {
-  recentGames: (RecentGamesType | null | undefined)[];
-  filteredData: RecentGamesType;
+interface MatchedHeaderProps {
+  data: MatchesType[];
   currentIndex: number;
-  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  prevBtnHandler: () => void;
+  nextBtnHandler: () => void;
 }
 
 const MatchesHeaderStyle = styled.div`
@@ -22,33 +22,24 @@ const MatchesHeaderStyle = styled.div`
   }
 `;
 
-const MatchesHeader = ({ recentGames, filteredData, currentIndex, setCurrentIndex }: HeaderProps) => {
-  const movePrevHandler = () => {
-    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
-  };
-
-  const moveNextHandler = () => {
-    if (currentIndex < recentGames.length - 1) setCurrentIndex(currentIndex + 1);
-  };
+const MatchesHeader = ({ data, currentIndex, prevBtnHandler, nextBtnHandler }: MatchedHeaderProps) => {
   return (
     <MatchesHeaderStyle>
-      <ControllBtn
-        type="button"
-        icon={<IoIosArrowBack />}
-        onClickHandler={movePrevHandler}
-        $disabled={currentIndex === 0}
-      />
-      <MatchesInfo
-        date={`${filteredData.gyear}.${filteredData.gmonth}.${filteredData.gday}`}
-        stadium={filteredData.stadium}
-        time={filteredData.gtime}
-      />
-      <ControllBtn
-        type="button"
-        icon={<IoIosArrowForward />}
-        onClickHandler={moveNextHandler}
-        $disabled={currentIndex === recentGames.length - 1}
-      />
+      <ControllBtn type="button" icon={<IoIosArrowBack />} onClickHandler={prevBtnHandler} />
+      {data.map(
+        (match, index) =>
+          index === currentIndex && (
+            <MatchesInfo
+              key={index}
+              gyear={match.gyear}
+              gmonth={match.gmonth}
+              gday={match.gday}
+              stadium={match.stadium}
+              gtime={match.gtime}
+            />
+          )
+      )}
+      <ControllBtn type="button" icon={<IoIosArrowForward />} onClickHandler={nextBtnHandler} />
     </MatchesHeaderStyle>
   );
 };

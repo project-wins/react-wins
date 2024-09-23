@@ -1,17 +1,41 @@
 import { TMedia } from "@customTypes/media";
-import { ArticleBox, MediaItemContainer, ThumbnailCss } from "@styles/Media.style";
 import { htmlToString } from "@utils/stringParsing";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TitleInfo from "./TitleInfo";
 
+const ArticleContainer = styled.article`
+  height: 130px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  padding: 13px 0px;
+  border-bottom: 1px solid #c3c3c3;
+`;
+
 const Thumbnail = styled.img`
-  ${ThumbnailCss}
+  width: 250px;
+  height: 100%;
+  max-height: 130px;
+  overflow: hidden;
+  flex-shrink: 0;
   object-fit: cover;
 `;
 
-const MediaItemBox = styled(ArticleBox)`
+const ArticleBox = styled.div`
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 23px 15px;
   cursor: pointer;
+`;
+
+const MainContent = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 const MediaTitle = styled.h1`
@@ -36,19 +60,19 @@ const ContentBox = styled.p`
 const MediaItem = ({ media }: { media: TMedia }) => {
   const navigate = useNavigate();
   return (
-    <MediaItemContainer>
+    <ArticleContainer>
       {media.imgFilePath && <Thumbnail src={media.imgFilePath}></Thumbnail>}
-      <MediaItemBox
+      <ArticleBox
         onClick={() => {
           navigate(`${media.artcSeq}`);
         }}>
-        <div>
+        <MainContent>
           <MediaTitle>{media.artcTitle}</MediaTitle>
           <ContentBox>{htmlToString(media.artcContents)}</ContentBox>
-        </div>
+        </MainContent>
         <TitleInfo date={media.regDttm} view={media.viewCnt} />
-      </MediaItemBox>
-    </MediaItemContainer>
+      </ArticleBox>
+    </ArticleContainer>
   );
 };
 export default MediaItem;

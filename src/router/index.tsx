@@ -1,6 +1,5 @@
 import ClubDescription from "@components/About/ClubDescription";
 import ClubHistory from "@components/About/ClubHistory";
-import Audience from "@pages/Audience.tsx";
 import BoxScore from "@pages/BoxScore";
 import Catcher from "@pages/Catcher";
 import CatcherDetail from "@pages/CatcherDetail";
@@ -145,7 +144,6 @@ export const router = createBrowserRouter([
             children: [
               { index: true, element: <Navigate to="team" /> },
               { path: "team", element: <TeamRanking /> },
-              { path: "crowd", element: <Audience /> },
             ],
           },
           {

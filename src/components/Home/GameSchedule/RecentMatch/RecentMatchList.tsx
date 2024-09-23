@@ -1,5 +1,7 @@
+import { MatchesType } from "@customTypes/recentMatch";
+import recentMatchesData from "@data/recentMatches.json";
+import { formatDate } from "@utils/date";
 import { useEffect, useState } from "react";
-import { useHomeStore } from "store/actions/useHomeStore";
 import styled from "styled-components";
 import MatchesHeader from "./MatchesHeader";
 import RecentMatchItem from "./RecentMatchItem";
@@ -14,35 +16,48 @@ const RecentMatchListStyle = styled.div`
 `;
 
 const RecentMatchList = () => {
-  const fetchRecentGames = useHomeStore((state) => state.fetchRecentGames);
-  const data = useHomeStore((state) => state.data);
+  const [data, setData] = useState<MatchesType[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const recentGames = [data?.prev, data?.current, data?.next];
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const filteredData = recentGames[currentIndex];
+  const formattedToday = formatDate(new Date()).split(".").join("");
+
+  const prevBtnHandler = () => {
+    setCurrentIndex((prev) => (prev === 0 ? data.length - 1 : prev - 1));
+  };
+
+  const nextBtnHandler = () => {
+    setCurrentIndex((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+  };
 
   useEffect(() => {
-    fetchRecentGames();
-  }, []);
+    setData(recentMatchesData);
 
-  useEffect(() => {
-    setCurrentIndex(1);
-  }, [data]);
+    const matchingIndex = recentMatchesData.findIndex((match) => match.displayDate === formattedToday);
 
-  if (!filteredData) return null;
+    if (matchingIndex !== -1) {
+      setCurrentIndex(matchingIndex);
+    } else {
+      const closestIndex = recentMatchesData.reduce((closestIdx, match, index) => {
+        const currentDiff = Math.abs(Number(match.displayDate) - Number(formattedToday));
+        const closestDiff = Math.abs(Number(recentMatchesData[closestIdx].displayDate) - Number(formattedToday));
+
+        return currentDiff < closestDiff ? index : closestIdx;
+      }, 0);
+
+      setCurrentIndex(closestIndex);
+    }
+  }, [formattedToday, recentMatchesData]);
 
   return (
-    <>
-      <RecentMatchListStyle>
-        <MatchesHeader
-          recentGames={recentGames}
-          filteredData={filteredData}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-        />
-        <RecentMatchItem filteredData={filteredData} />
-      </RecentMatchListStyle>
-    </>
+    <RecentMatchListStyle>
+      <MatchesHeader
+        currentIndex={currentIndex}
+        prevBtnHandler={prevBtnHandler}
+        nextBtnHandler={nextBtnHandler}
+        data={data}
+      />
+      <RecentMatchItem currentIndex={currentIndex} data={data} />
+    </RecentMatchListStyle>
   );
 };
 export default RecentMatchList;
